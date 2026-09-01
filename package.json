@@ -1,0 +1,24 @@
+{
+	"type": "module",
+	"devDependencies": {
+		"@tsconfig/node24": "^24.0.5",
+		"@types/node": "^24.0.0",
+		"@vitejs/plugin-vue": "^5.1.4",
+		"@vue/tsconfig": "^0.5.1",
+		"less": "^4.2.0",
+		"terser": "^5.36.0",
+		"tslib": "^2.8.1",
+		"typescript": "^5.6.3",
+		"vite": "^5.4.10",
+		"vue-tsc": "^2.1.10"
+	},
+	"main": "./dist/index.cjs",
+	"scripts": {
+		"build": "vite build",
+		"calendar": "vite build && copy calendar\\* C:\\Users\\Dave\\source\\repos\\dave-12138.cn\\dave-12138.cn\\wwwroot\\test\\calendar\\",
+		"calendar-node:build": "vite build --mode calendar-node"
+	},
+	"dependencies": {
+		"vue": "latest"
+	}
+}

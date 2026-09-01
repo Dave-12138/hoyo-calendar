@@ -1,0 +1,5 @@
+<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+    <text stroke="#000" fill="#00bf5f" fill-opacity="0.5" stroke-width="0" x="25" y="35"
+        font-size="30" text-anchor="middle">今</text>
+    <circle cx="25" cy="25" r="22" stroke-width="5" stroke="#00bf5f" fill="transparent"></circle>
+</svg>

@@ -1,0 +1,94 @@
+name: 米游社日历更新
+
+# 控制时机
+on:
+  # push 时
+  push:
+    branches: ["main"]
+
+  # 定时器
+  schedule:
+    - cron: "5 4,11-13 * * *"
+
+  # 手动
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      success: ${{ steps.file_check.outputs.exists }}
+    steps:
+      # 取当前版本
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Get Custom
+        uses: actions/checkout@v7
+        with:
+          repository: 'Dave-12138/cdns'
+          path: "./cdns"
+      - name: 配置 pages
+        uses: actions/configure-pages@v6
+      - name: 安装 pnpm 与 Node.js
+        uses: pnpm/setup@v2
+        with:
+          version: 11
+          runtime: node@24
+      - name: 构建 日历
+        run: pnpm build
+      - name: 构建 fetcher
+        run: pnpm run calendar-node:build
+      # 拿数据
+      - name: 查询并合并数据
+        run: |
+          mv ./cdns/custom_fes.json ./custom_fes.json
+          node ./node/fetch-calendar.cjs
+        continue-on-error: true
+      - name: 检查并下载备份
+        id: download_backup
+        run: |
+          if [ ! -f "miyoushe-calendar.json" ]; then
+            echo "进入备份下载逻辑，开始从备份URL下载文件"
+            curl -o miyoushe-calendar.json https://dave-12138.github.io/hoyo-calendar/miyoushe-calendar.json
+          fi
+      - name: 检查文件
+        id: file_check
+        run: |
+          if [ -f "miyoushe-calendar.json" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      - name: move
+        run: |
+          mv miyoushe-calendar.json ./calendar/
+          mv index.html ./calendar/
+      # 上传要用的部分用于 pages
+      - name: 上传 artifact
+        if: steps.file_check.outputs.exists == 'true'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: "./calendar/"
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    if: needs.build.outputs.success == 'true'
+    steps:
+      - name: 发布 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
