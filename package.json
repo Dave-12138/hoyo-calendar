@@ -1,4 +1,6 @@
 {
+	"private": true,
+	"license": "MIT",
 	"type": "module",
 	"devDependencies": {
 		"@tsconfig/node24": "^24.0.5",
@@ -12,13 +14,12 @@
 		"vite": "^5.4.10",
 		"vue-tsc": "^2.1.10"
 	},
-	"main": "./dist/index.cjs",
+	"dependencies": {
+		"vue": "latest"
+	},
 	"scripts": {
 		"build": "vite build",
 		"calendar": "vite build && copy calendar\\* C:\\Users\\Dave\\source\\repos\\dave-12138.cn\\dave-12138.cn\\wwwroot\\test\\calendar\\",
 		"calendar-node:build": "vite build --mode calendar-node"
-	},
-	"dependencies": {
-		"vue": "latest"
 	}
 }
