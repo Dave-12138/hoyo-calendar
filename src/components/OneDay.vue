@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { DayData,  now, updateDates } from './data';
+import { DayData, now, updateDates } from './data';
 import { dateOrMonthToShow } from './util';
 
 const props = defineProps<DayData>();
@@ -17,7 +17,7 @@ const fes = computed(() => updateDates.value.filter(v => v.date == props.str));
       </div>
       <div class="position-absolute fs-small start-0 top-0 w-100 h-100">
         <div v-for="fe in fes">
-          <span class="text-success">{{  fe.game ?? "" }}</span>
+          <span class="text-success">{{ fe.game ?? "" }}</span>
           <span>{{ fe.desc }}</span>
         </div>
       </div>
@@ -28,32 +28,35 @@ const fes = computed(() => updateDates.value.filter(v => v.date == props.str));
   </td>
 </template>
 <style lang="less">
-.fs-small {
-  @media (max-width:992px) {
-    font-size: 10px;
+table.calendar-table>tbody>tr {
+
+  .fs-small {
+    @media (max-width:992px) {
+      font-size: 10px;
+    }
   }
-}
 
-.today {
-  background-image: url("./today.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
+  .today {
+    background-image: url("./today.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 
-td:not(.tomonth) {
-  opacity: 0.6;
+  td:not(.tomonth) {
+    opacity: 0.6;
 
-  background-color: rgba(0, 0, 0, 0.2);
-  // &::before {
-  //     content: "";
-  //     display: block;
-  //     position: absolute;
-  //     width: calc(100% + 1rem);
-  //     height: calc(100% + 1rem);
-  //     left: 50%;
-  //     top: 50%;
-  //     transform: translate(-50%, -50%);
-  // }
+    background-color: rgba(0, 0, 0, 0.2);
+    // &::before {
+    //     content: "";
+    //     display: block;
+    //     position: absolute;
+    //     width: calc(100% + 1rem);
+    //     height: calc(100% + 1rem);
+    //     left: 50%;
+    //     top: 50%;
+    //     transform: translate(-50%, -50%);
+    // }
+  }
 }
 </style>
