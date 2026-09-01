@@ -4,7 +4,7 @@ import { DayData,  now, updateDates } from './data';
 import { dateOrMonthToShow } from './util';
 
 const props = defineProps<DayData>();
-const isToday = computed(() => now.value.toLocaleDateString() == props.str);
+const isToday = computed(() => now.value.toLocaleDateString("zh-Hans-CN") == props.str);
 const tomonth = computed(() => now.value.getMonth() + 1 == props.month);
 
 const fes = computed(() => updateDates.value.filter(v => v.date == props.str));

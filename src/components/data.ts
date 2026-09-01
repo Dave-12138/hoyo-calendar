@@ -59,7 +59,7 @@ document.addEventListener("keydown", e => {
         default:
             break;
     }
-    location.hash = cur.toLocaleDateString();
+    location.hash = cur.toLocaleDateString("zh-Hans-CN");
 });
 export const calendar = computed(() => {
     const start = new Date(hash.value);
@@ -74,13 +74,13 @@ export const calendar = computed(() => {
     if (end.getDay() != 0) {
         end.setDate(end.getDate() + 7 - end.getDay());
     }
-    const pointer = new Date(Date.parse(start.toLocaleDateString()));
+    const pointer = new Date(Date.parse(start.toLocaleDateString("zh-Hans-CN")));
     const calendar: DayData[][] = [];
     while (pointer <= end) {
         if (pointer.getDay() == 1) {
             calendar.push([]);
         }
-        calendar[calendar.length - 1].push({ day: pointer.getDay(), date: pointer.getDate(), month: pointer.getMonth() + 1, str: pointer.toLocaleDateString() });
+        calendar[calendar.length - 1].push({ day: pointer.getDay(), date: pointer.getDate(), month: pointer.getMonth() + 1, str: pointer.toLocaleDateString("zh-Hans-CN") });
         pointer.setDate(pointer.getDate() + 1);
     }
     return calendar;
