@@ -14,7 +14,7 @@ function initListWith(list: UpdateInfo[]) {
     updateDates.value = deletingfilter(list);
 }
 (async () => {
-    const githubIOSource = "/api/proxy/https://dave-12138.github.io/cdns/miyoushe-calendar.json";
+    const githubIOSource = "https://dave-12138.cn/api/proxy/https://dave-12138.github.io/hoyo-calendar/miyoushe-calendar.json";
     if (new URLSearchParams(location.search).get("session") !== null) {
         // 当初截图用的，用其他手段将数据存到 sessionStorage 里
         const datesTmp = ref<string>("[]");
