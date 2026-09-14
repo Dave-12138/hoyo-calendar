@@ -2,6 +2,14 @@
 import { getFestivals as getFromMiyoushe } from "./miyoushe/api";
 import type { UpdateInfo } from '../components/data';
 import fs from "node:fs";
+function readCustom(): UpdateInfo[] {
+    try {
+        return JSON.parse(fs.readFileSync('custom_fes.json', "utf-8"))
+    } catch (error) {
+        console.error(error)
+        return [];
+    }
+}
 (async function () {
     const now = new Date();
     function resolveEachDate(v: UpdateInfo): UpdateInfo {
@@ -25,6 +33,6 @@ import fs from "node:fs";
     }
     fs.writeFileSync("miyoushe-calendar.json", await Promise.all([
         getFromMiyoushe(),
-        JSON.parse(fs.readFileSync('custom_fes.json', "utf-8")) as UpdateInfo[]
+        readCustom()
     ]).then(([miyoushe, github]) => JSON.stringify([...miyoushe, ...github.map(resolveEachDate)])));
 })()

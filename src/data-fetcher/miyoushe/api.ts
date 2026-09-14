@@ -4,7 +4,7 @@ import ytj from "./yuan-hsr-zzz";
 import ytjLive from "./live";
 
 const _link = "https://bbs-api.miyoushe.com/post/wapi/searchPosts?";
-const link = typeof window == "undefined" ? _link : "/api/proxy/" + _link;
+const link = typeof process !== "undefined" ? _link : "https://proxy.dave-12138.cn/" + _link;
 interface PostData {
     post: {
         content: string;
