@@ -47,28 +47,23 @@ jobs:
         run: pnpm build
       - name: 构建 fetcher
         run: pnpm run calendar-node:build
-      # 拿数据
+      # 拿数据：网络波动导致抓取失败是常态，故静默失败（不 fail 工作流、不发失败邮件）
       - name: 查询并合并数据
+        continue-on-error: true
         run: |
           mv ./cdns/custom_fes.json ./custom_fes.json
           node ./node/fetch-calendar.cjs
-        continue-on-error: true
-      - name: 检查并下载备份
-        id: download_backup
-        run: |
-          if [ ! -f "miyoushe-calendar.json" ]; then
-            echo "进入备份下载逻辑，开始从备份URL下载文件"
-            curl -o miyoushe-calendar.json https://dave-12138.github.io/hoyo-calendar/miyoushe-calendar.json
-          fi
-      - name: 检查文件
+      - name: 检查数据文件
         id: file_check
         run: |
           if [ -f "miyoushe-calendar.json" ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
+            echo "::warning::未获取到 miyoushe-calendar.json（多半是网络问题），静默跳过后续所有步骤，本轮不发布。"
           fi
       - name: move
+        if: steps.file_check.outputs.exists == 'true'
         run: |
           mv miyoushe-calendar.json ./calendar/
           mv index.html ./calendar/
