@@ -20,8 +20,9 @@ permissions:
 
 
 concurrency:
+  # 同一时刻只保留一轮：新触发会立即取消上一轮未完成的 run，避免卡死的 run 把后续触发一直堵在队列里
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
