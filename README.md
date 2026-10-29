@@ -1,6 +1,6 @@
 # 米游社更新日历
 
-展示米游社几款游戏版本更新与前瞻节目的网页日历，用于个人站：**[https://dave-12138.cn/test/calendar/](https://dave-12138.cn/test/calendar/)**
+展示米游社几款游戏版本更新与前瞻节目的网页日历，用于个人站：**[https://dave-12138.cn/misc/calendar/](https://dave-12138.cn/misc/calendar/)**
 
 ## 数据从哪来
 
