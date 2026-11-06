@@ -53,7 +53,7 @@ jobs:
         continue-on-error: true
         run: |
           mv ./cdns/custom_fes.json ./custom_fes.json
-          node ./node/fetch-calendar.cjs
+          pnpm run calendar-node:run
       - name: 检查数据文件
         id: file_check
         run: |
