@@ -19,7 +19,8 @@
 	},
 	"scripts": {
 		"build": "vite build",
-		"calendar": "vite build && copy calendar\\* C:\\Users\\Dave\\source\\repos\\dave-12138.cn\\dave-12138.cn\\wwwroot\\test\\calendar\\",
-		"calendar-node:build": "vite build --mode calendar-node"
+		"calendar": "vite build && copy calendar\\* C:\\Users\\Dave\\source\\repos\\dave-12138.cn\\dave-12138.cn\\wwwroot\\misc\\calendar\\",
+		"calendar-node:build": "vite build --mode calendar-node",
+		"calendar-node:run": "node ./node/fetch-calendar.cjs"
 	}
 }
